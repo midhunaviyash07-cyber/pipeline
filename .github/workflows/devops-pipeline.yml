@@ -1,0 +1,41 @@
+name: DevOps Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout code from repository
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # Step 2: Setup Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # Step 3: Install dependencies
+    - name: Install Dependencies
+      run: npm install
+
+    # Step 4: Run tests
+    - name: Run Tests
+      run: npm test
+
+    # Step 5: Build the application
+    - name: Build Application
+      run: npm run build
+
+    # Step 6: Upload build artifacts
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-output
+        path: dist/
