@@ -1,0 +1,15 @@
+{
+  "name": "pipeline",
+  "version": "1.0.0",
+  "description": "DevOps Pipeline Application",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'Build process completed'",
+    "start": "node index.js",
+    "test": "echo 'Running tests'"
+  },
+  "keywords": ["devops", "pipeline"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}
