@@ -1,12 +1,20 @@
 // Test suite for main application
 const app = require('./index');
 
-describe('API Endpoints', () => {
-  test('should be defined', () => {
+describe('Express App', () => {
+  test('app should be defined', () => {
     expect(app).toBeDefined();
   });
 
-  test('health check endpoint exists', () => {
+  test('app should have get method', () => {
     expect(typeof app.get).toBe('function');
+  });
+
+  test('app should have post method', () => {
+    expect(typeof app.post).toBe('function');
+  });
+
+  test('app should have use method for middleware', () => {
+    expect(typeof app.use).toBe('function');
   });
 });
