@@ -1,58 +1,38 @@
-/**
- * Main Application Entry Point
- */
+// Main application entry point
+const express = require('express');
 
-console.log('🚀 Application Starting...');
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-/**
- * Add two numbers
- * @param {number} a - First number
- * @param {number} b - Second number
- * @returns {number} Sum of a and b
- */
-function add(a, b) {
-  return a + b;
+app.use(express.json());
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'healthy', timestamp: new Date().toISOString() });
+});
+
+// API endpoints
+app.get('/api/hello', (req, res) => {
+  res.json({ message: 'Hello from Express API' });
+});
+
+app.post('/api/data', (req, res) => {
+  const { name } = req.body;
+  res.json({ received: name, timestamp: new Date().toISOString() });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(500).json({ error: 'Internal Server Error' });
+});
+
+// Export for testing
+module.exports = app;
+
+// Start server if not imported as a module
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 }
-
-/**
- * Subtract two numbers
- * @param {number} a - First number
- * @param {number} b - Second number
- * @returns {number} Difference of a and b
- */
-function subtract(a, b) {
-  return a - b;
-}
-
-/**
- * Multiply two numbers
- * @param {number} a - First number
- * @param {number} b - Second number
- * @returns {number} Product of a and b
- */
-function multiply(a, b) {
-  return a * b;
-}
-
-/**
- * Divide two numbers
- * @param {number} a - First number
- * @param {number} b - Second number
- * @returns {number} Quotient of a and b
- * @throws {Error} If b is zero
- */
-function divide(a, b) {
-  if (b === 0) {
-    throw new Error('Division by zero is not allowed');
-  }
-  return a / b;
-}
-
-module.exports = {
-  add,
-  subtract,
-  multiply,
-  divide,
-};
-
-console.log('✅ Application Loaded Successfully');
